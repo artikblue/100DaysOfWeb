@@ -1,10 +1,12 @@
 from program import app
 
+from flask import render_template
+
 @app.route('/')
 @app.route('/index')
 def index():
-    return "<h1>First flask app :)</h1>"
+    return render_template("index.html")
 
 @app.route('/info')
 def info():
-    return "<b>this is the info page</b>"
+    return render_template("info.html")
