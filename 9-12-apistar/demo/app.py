@@ -61,7 +61,7 @@ def update_connection(connection_id: int, connection: Connection) -> JSONRespons
     return JSONResponse(Connection(connection), status_code=200)
 
 def delete_connection(connection_id: int) -> JSONResponse:
-    if connections.get(connection_id):
+    if not connections.get(connection_id):
         error = {'error': CON_NOT_FOUND}
         return JSONResponse(error, status_code = 404)
     

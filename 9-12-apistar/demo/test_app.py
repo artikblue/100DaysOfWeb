@@ -49,3 +49,28 @@ def test_create_con_field_validation():
 
     errors = response.json()
     assert errors['user_agent'] == 'Must have no more than 300 characters.'
+
+def test_get_con():
+    response = client.get('/777/')
+    assert response.status_code == 200
+
+    expected = {"id":777,"user_agent":"Mozilla/5.0 (X11; NetBSD amd64; rv:16.0) Gecko/20121102 Firefox/16.0","country":"China","date":"8/22/2019","ipv4_addr":"29.147.15.15"}
+
+    assert response.json() == expected
+
+def test_get_con_notfound():
+    response = client.get('/11111/')
+    assert response.status_code == 404
+    assert response.json() == {'error': CON_NOT_FOUND}
+
+def test_delete_con():
+    con_count = len(connections)
+
+    for i in (11, 22, 33):
+        response = client.delete(f'/{i}/')
+        assert response.status_code == 204
+
+        response = client.get(f'/{i}/')
+        assert response.status_code == 404  
+
+    assert len(connections) == con_count - 3
