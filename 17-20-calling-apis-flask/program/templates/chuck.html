@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+<img src="{{ joke.icon_url }}">
+<p>So you want a <b>Chuck Norris</b> joke huh?</p>
+<p> <i> {{ joke.value }} </i></p>
+<a href="{{ joke.url }}">Wanna pin this one?</a>
+
+{% endblock %}
