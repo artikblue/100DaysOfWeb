@@ -1,12 +1,24 @@
 {% extends "base.html" %}
 
 {% block content %}
-
+    <script>
+        function validateForm() {
+            var colours = ["blue", "brown", "pink", "white", "red", "green", "purple", "yellow", "gray"];
+            var x = document.forms["pokemondata"]["pokecolour"].value;
+            if (  (typeof x === 'string' && colours.indexOf(x) >= 0)  || ((parseInt(x)  > 0 && parseInt(x)  < 10) ) ) {
+                return true;
+            }
+            else{
+                alert("invalid color");
+                return false;
+            }
+        }
+    </script>
     <h1>Pokemon colour list</h1>
     <h3>Enter a colour to see which pokemon match</h3>
 
     <div>
-        <form class="mui-form" method="POST" action="/pokemon">
+        <form name="pokemondata" class="mui-form" method="POST" action="/pokemon" onsubmit="return validateForm()">
             <label for="pokecolour">Pokemon colour</label>
             <input type="text" class="form-control" id="pokecolour" name="pokecolour" placeholder="eg: blue">
             <button type="submit" class="mui-btn mui-btn-raised" value="Submit">Submit</button>
@@ -17,22 +29,40 @@
     <br>
 
     <div>
-        {% if pokemon %}
-            <table>
-                <thead>
+        {% if pokemon is defined %}
+            <table style="width:100%; border:solid 1px gray">
                     <tr>
                         <th>Pokemon</th>
+                        <th>order</th>
+                        <th>Weight</th>
+                        <th>Height</th>
+                        <th align="left">Types</th>
+                        <th align="left">Location</th>
                     </tr>
-                </thead>
-                <tbody>
                     {% for i in pokemon %}
                         <tr>
                             <td>
-                                {{ i }}
+                                {{ i.name }}
+                            </td>
+                            <td>
+                                {{ i.order }}
+                            </td>
+                            <td>
+                                {{ i.height }}
+                            </td>
+                            <td>
+                                {{ i.weight }}
+                            </td>
+                            <td>
+                                    {% for x in i.types %}
+                                        {{ x.type.name }}  
+                                    {% endfor %}
+                            </td>
+                            <td>
+                                {{ i.location_area_encounters }}
                             </td>
                         </tr>
                     {% endfor %}
-                </tbody>
             </table>
                 {% endif %}
     </div>
