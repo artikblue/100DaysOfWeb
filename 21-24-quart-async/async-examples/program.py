@@ -1,5 +1,5 @@
-import asyncio
 import decimal
+import asyncio
 import functools
 from concurrent.futures import ThreadPoolExecutor
 def force_async(fn):
@@ -33,12 +33,15 @@ def compute_pi(n):
         X *= -262537412640768000
         S += decimal.Decimal(M * L) / X
     pi = C / S
-    print(pi)
-    #return str(pi)
+    return str(pi)
 
 async def greet(msg):
     print(msg)
+    
 
+async def print_pi(dec):
+    pi = await compute_pi(dec)
+    print(pi)
 
 
 
@@ -47,9 +50,9 @@ print("Now, compute_pi will be executed")
 loop = asyncio.get_event_loop()
 data = asyncio.Queue()
 
-task1 = loop.create_task(compute_pi(800))
+task1 = loop.create_task(print_pi(800))
 task2 = loop.create_task(greet("Another function gets calleeeeeeed"))
 task3 = loop.create_task(greet("Another function gets called"))
 
-final_task = asyncio.gather(task1, task2, task3)
+final_task = asyncio.gather( task1,task2, task3)
 loop.run_until_complete(final_task)
