@@ -8,9 +8,27 @@
   /* write a function to sum numbers, if no argument is provided
     default summing a range of 1..100 - write a second function
     called range to return that range of integers */
+  
 
+  function gen100(){
+    let sum = [];
+    for(let i = 0; i <= 100; i++){
+      sum.push(i);
+    }
+    return sum;
+  }
   function sum(numbers){
     // you code
+    let res = 0;
+    if(!numbers){
+      numbers = gen100();
+      console.log(numbers);
+    }
+    for(let n of numbers){
+        res += n;
+    }
+    
+    return res;
   }
 
 
