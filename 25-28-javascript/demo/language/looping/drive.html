@@ -22,7 +22,17 @@
   // names and ages are equal length lists (we will make objects (dicts) soon)
   const names = ['tim', 'sara', 'mike', 'julian', 'eva', 'amy'];
   const ages = [14, 33, 17, 18, 25, 7];
+  for(var i = 0; i < names.length; i++){
+    name = names[i];
+    age = ages[i]
 
+    if(age < 18){
+      console.log(name+" is NOT allowed to drive");
+    }
+    else{
+      console.log(name+" IS allowed to drive");
+    }
+  }
   // you code
 
   </script>
