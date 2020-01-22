@@ -51,8 +51,11 @@ loop = asyncio.get_event_loop()
 data = asyncio.Queue()
 
 task1 = loop.create_task(print_pi(800))
-task2 = loop.create_task(greet("Another function gets calleeeeeeed"))
-task3 = loop.create_task(greet("Another function gets called"))
+task4 = loop.create_task(print_pi(800))
+task2 = loop.create_task(greet("task2 function gets calleeeeeeed"))
+task3 = loop.create_task(greet("task3 function gets called"))
+task4 = loop.create_task(print_pi(500))
 
-final_task = asyncio.gather( task1,task2, task3)
+
+final_task = asyncio.gather( task1,task2, task3, task4)
 loop.run_until_complete(final_task)
