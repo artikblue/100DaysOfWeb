@@ -44,11 +44,24 @@ if (form.attachEvent) {
 // helpers
 function recalculateTotal(){
   // get all table cells (tds) and sum the calories = td with kcal
+  var result = 0;
+  var ftable = document.getElementById("foodBalanceTable");
+  console.log("aaaa")
+  
+  d = ftable.getElementsByTagName("tr").length
+  for(var i = 1; i < d; i++){
+    row = ftable.getElementsByTagName("tr")[i];
+    cals = row.getElementsByTagName("td")[1].innerHTML;
+    result += parseFloat(cals);
+  }
+  return result;
 }
 
-function updateTotalKcal(){
+function updateTotalKcal(tres){
   // write the total kcal count into  the total id, if 0 hide the
   // foodBalanceWrapper div
+  total = document.getElementById("total");
+  total.innerHTML = tres;
 }
 
 function emptyFoodPicker(){
@@ -58,10 +71,35 @@ function emptyFoodPicker(){
 function removeRow(){
   // remove a table row and update the total kcal
   // https://stackoverflow.com/a/53085148
+  var td = event.target.parentNode; 
+  var tr = td.parentNode; // the row to be removed
+  tr.parentNode.removeChild(tr);
+
+  result = recalculateTotal();
+  updateTotalKcal(result);
 }
 
 function updateFoodLog(){
   // udate the food table with the new food, building up the inner dom
   // elements, including adding a delete button / onclick handler
   // finally call updateTotalKcal and emptyFoodPicker
+
+  var selectedfood = document.getElementById("foodPicker").value;
+  var mySubString = selectedfood.substring(
+    selectedfood.lastIndexOf("(") + 1, 
+    selectedfood.lastIndexOf(" ")
+  );
+  var tableRef = document.getElementById('foodBalanceTable').getElementsByTagName('tbody')[0];
+  var newRow   = tableRef.insertRow();
+
+  var newCell  = newRow.insertCell(0);
+  newCell.innerHTML = '<input type="button" value="X" onclick="removeRow()">  '+ selectedfood;
+  var newCell2 = newRow.insertCell(1);
+  newCell2.innerHTML = mySubString;
+
+
+
+  result = recalculateTotal();
+  updateTotalKcal(result);
+  
 }
