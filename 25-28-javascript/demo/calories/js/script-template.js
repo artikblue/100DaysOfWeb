@@ -66,6 +66,8 @@ function updateTotalKcal(tres){
 
 function emptyFoodPicker(){
   // reset the foodPicker ID value
+  document.getElementById("foodPicker").value = '';
+
 }
 
 function removeRow(){
