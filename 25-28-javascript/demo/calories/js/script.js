@@ -101,7 +101,7 @@ function updateFoodLog(){
   col2.className = "kcal";  // for calculation
 
   let deleteBtn = document.createElement("input");
-  deleteBtn.onclick = removeRow;
+  deleteBtn.onclick = removeRow;none
   deleteBtn.type = 'button';
   deleteBtn.className = 'delete';
   col3.appendChild(deleteBtn);
